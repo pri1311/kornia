@@ -196,6 +196,7 @@
 <li class="toctree-l1"><a class="reference internal" href="applications/image_stitching.html">Image Stitching</a></li>
 <li class="toctree-l1"><a class="reference internal" href="applications/image_registration.html">Image Registration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="applications/semantic_segmentation.html">Semantic segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="applications/image_denoising.html">Image Denoising</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">KORNIA MODELS</span></p>
 <ul>
@@ -616,7 +617,7 @@ Default:  <code class="code docutils literal notranslate"><span class="pre">'ref
 
 <section id="interactive-demo">
 <h3>Interactive Demo<a class="headerlink" href="#interactive-demo" title="Permalink to this heading">#</a></h3>
-<gradio-app space="kornia/kornia-image-filtering"></gradio-app><p>Visit the demo on <a class="reference external" href="https://huggingface.co/spaces/kornia/kornia-image-filtering">Hugging Face Spaces</a>.</p>
+<gradio-app space="kornia/kornia-image-filtering"></gradio-app><p>Visit the <a class="reference external" href="https://huggingface.co/spaces/kornia/kornia-image-filtering">Kornia image filtering demo on the Hugging Face Spaces</a>.</p>
 </section>
 </section>
 <section id="edge-detection">
@@ -1019,7 +1020,7 @@ is the edges map with shape <span class="math notranslate nohighlight">\((B,1,H,
 
 <section id="id3">
 <h3>Interactive Demo<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
-<gradio-app space="kornia/edge_detector"></gradio-app><p>Visit the demo on <a class="reference external" href="https://huggingface.co/spaces/kornia/edge_detector">Hugging Face Spaces</a>.</p>
+<gradio-app space="kornia/edge_detector"></gradio-app><p>Visit the <a class="reference external" href="https://huggingface.co/spaces/kornia/edge_detector">Kornia edge detector demo on the Hugging Face Spaces</a>.</p>
 </section>
 </section>
 <section id="filtering-api">
@@ -1221,12 +1222,12 @@ Default:  <code class="code docutils literal notranslate"><span class="pre">Fals
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>1D tensor with gaussian filter coefficients.</p>
+<dd class="field-even"><p>gaussian filter coefficients</p>
 </dd>
 </dl>
 <dl class="simple">
 <dt>Shape:</dt><dd><ul class="simple">
-<li><p>Output: <span class="math notranslate nohighlight">\((\text{kernel_size})\)</span></p></li>
+<li><p>Output: <span class="math notranslate nohighlight">\((B, \text{kernel_size})\)</span>.</p></li>
 </ul>
 </dd>
 </dl>
@@ -1237,11 +1238,11 @@ Default:  <code class="code docutils literal notranslate"><span class="pre">Fals
 </dl>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_gaussian_kernel1d</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">)</span>
-<span class="go">tensor([0.3243, 0.3513, 0.3243])</span>
+<span class="go">tensor([[0.3243, 0.3513, 0.3243]])</span>
 </pre></div>
 </div>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_gaussian_kernel1d</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">)</span>
-<span class="go">tensor([0.1201, 0.2339, 0.2921, 0.2339, 0.1201])</span>
+<span class="go">tensor([[0.1201, 0.2339, 0.2921, 0.2339, 0.1201]])</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -1335,8 +1336,7 @@ Default:  <code class="code docutils literal notranslate"><span class="pre">Fals
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>kernel_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.11)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]) – filter sizes in the x and y direction.
 Sizes should be odd and positive.</p></li>
-<li><p><strong>sigma</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.11)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>]) – gaussian standard deviation in the x and y
-direction.</p></li>
+<li><p><strong>sigma</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.11)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>]) – gaussian standard deviation in the x and y.</p></li>
 <li><p><strong>force_even</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>, <em>optional</em>) – overrides requirement for odd kernel size.
 Default:  <code class="code docutils literal notranslate"><span class="pre">False</span></code></p></li>
 </ul>
@@ -1347,7 +1347,7 @@ Default:  <code class="code docutils literal notranslate"><span class="pre">Fals
 </dl>
 <dl class="simple">
 <dt>Shape:</dt><dd><ul class="simple">
-<li><p>Output: <span class="math notranslate nohighlight">\((\text{kernel_size}_x, \text{kernel_size}_y)\)</span></p></li>
+<li><p>Output: <span class="math notranslate nohighlight">\((B, \text{kernel_size}_x, \text{kernel_size}_y)\)</span></p></li>
 </ul>
 </dd>
 </dl>
@@ -1357,14 +1357,18 @@ Default:  <code class="code docutils literal notranslate"><span class="pre">Fals
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_gaussian_kernel2d</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">))</span>
-<span class="go">tensor([[0.0947, 0.1183, 0.0947],</span>
-<span class="go">        [0.1183, 0.1478, 0.1183],</span>
-<span class="go">        [0.0947, 0.1183, 0.0947]])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">get_gaussian_kernel2d</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">))</span>
-<span class="go">tensor([[0.0370, 0.0720, 0.0899, 0.0720, 0.0370],</span>
-<span class="go">        [0.0462, 0.0899, 0.1123, 0.0899, 0.0462],</span>
-<span class="go">        [0.0370, 0.0720, 0.0899, 0.0720, 0.0370]])</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_gaussian_kernel2d</span><span class="p">((</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">))</span>
+<span class="go">tensor([[[0.0144, 0.0281, 0.0351, 0.0281, 0.0144],</span>
+<span class="go">         [0.0281, 0.0547, 0.0683, 0.0547, 0.0281],</span>
+<span class="go">         [0.0351, 0.0683, 0.0853, 0.0683, 0.0351],</span>
+<span class="go">         [0.0281, 0.0547, 0.0683, 0.0547, 0.0281],</span>
+<span class="go">         [0.0144, 0.0281, 0.0351, 0.0281, 0.0144]]])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_gaussian_kernel2d</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">))</span>
+<span class="go">tensor([[[0.0370, 0.0720, 0.0899, 0.0720, 0.0370],</span>
+<span class="go">         [0.0462, 0.0899, 0.1123, 0.0899, 0.0462],</span>
+<span class="go">         [0.0370, 0.0720, 0.0899, 0.0720, 0.0370]]])</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -1561,7 +1565,7 @@ Default:  <code class="code docutils literal notranslate"><span class="pre">'nea
 <dt class="sig sig-object py" id="kornia.filters.BlurPool2D">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">kornia.filters.</span></span><span class="sig-name descname"><span class="pre">BlurPool2D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kernel_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stride</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kornia/filters/blur_pool.html#BlurPool2D"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#kornia.filters.BlurPool2D" title="Permalink to this definition">#</a></dt>
 <dd><p>Compute blur (anti-aliasing) and downsample a given feature map.</p>
-<p>See <span id="id5">[<a class="reference internal" href="community/bibliography.html#id4" title="Richard Zhang. Making convolutional networks shift-invariant again. In ICML. 2019.">Zha19</a>]</span> for more details.</p>
+<p>See <span id="id4">[<a class="reference internal" href="community/bibliography.html#id4" title="Richard Zhang. Making convolutional networks shift-invariant again. In ICML. 2019.">Zha19</a>]</span> for more details.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -1653,7 +1657,7 @@ Default:  <code class="code docutils literal notranslate"><span class="pre">True
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">kornia.filters.</span></span><span class="sig-name descname"><span class="pre">MaxBlurPool2D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kernel_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stride</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_pool_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ceil_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kornia/filters/blur_pool.html#MaxBlurPool2D"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#kornia.filters.MaxBlurPool2D" title="Permalink to this definition">#</a></dt>
 <dd><p>Compute pools and blurs and downsample a given feature map.</p>
 <p>Equivalent to <code class="docutils literal notranslate"><span class="pre">`nn.Sequential(nn.MaxPool2d(...),</span> <span class="pre">BlurPool2D(...))`</span></code></p>
-<p>See <span id="id6">[<a class="reference internal" href="community/bibliography.html#id4" title="Richard Zhang. Making convolutional networks shift-invariant again. In ICML. 2019.">Zha19</a>]</span> for more details.</p>
+<p>See <span id="id5">[<a class="reference internal" href="community/bibliography.html#id4" title="Richard Zhang. Making convolutional networks shift-invariant again. In ICML. 2019.">Zha19</a>]</span> for more details.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
